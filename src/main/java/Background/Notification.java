@@ -1,3 +1,4 @@
+package Background;
 import javax.swing.JOptionPane;
 
 public class Notification {

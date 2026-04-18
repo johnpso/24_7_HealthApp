@@ -1,4 +1,9 @@
-import java.sql.*;
+package Background;
+
+import DB.DBConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalTime;
 
 public class Background extends Thread {
