@@ -3,15 +3,18 @@ module org.example._4_7_healthapp {
     requires javafx.fxml;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
+    requires org.slf4j;
+    requires org.slf4j.simple;
 
-
-
-    exports Models;
-    opens Models to javafx.fxml;
     exports Main;
-    opens Main to javafx.fxml;
+    exports Models;
     exports Controllers;
-    opens Controllers to javafx.fxml;
     exports Views;
+
+    opens Main to javafx.fxml;
+    opens Models to javafx.fxml;
+    opens Controllers to javafx.fxml;
     opens Views to javafx.fxml;
+    exports DB;
+    opens DB to javafx.fxml;
 }

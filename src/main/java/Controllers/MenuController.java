@@ -1,10 +1,10 @@
 package Controllers;
 
-import Views.*; // Imports DefaultView, GraphsView, etc.
+import Views.*;
 import javafx.scene.Node;
 
 public class MenuController {
-    private final MainLayoutView mainLayout; // The Shell
+    private final MainLayoutView mainLayout;
 
     // Partial Views
     private final DefaultView defaultView;
@@ -21,7 +21,7 @@ public class MenuController {
         this.reportsView = new ReportView();
         this.historyView = new GraphsView();
 
-        // Attach listeners to the buttons in the MainLayout
+        // Attach listeners to the renamed buttons
         setupNavigation();
 
         // Set the initial screen
@@ -29,25 +29,32 @@ public class MenuController {
     }
 
     private void setupNavigation() {
-        // Mapping buttons from the View to the Controller logic
-        mainLayout.reportBtn.setOnAction(e -> switchMenu(MenuState.REPORTS));
+        // Connect UserInfo to UserMedView
         mainLayout.userInfoBtn.setOnAction(e -> switchMenu(MenuState.USER_MEDICATION));
-        mainLayout.modifyBtn.setOnAction(e -> switchMenu(MenuState.GRAPHS_HISTORY));
-        // Note: You can add a specific button for 'Default' or 'Home' if needed
+
+        // Connect ReportInfo to GraphsView (History)
+        mainLayout.reportInfoBtn.setOnAction(e -> switchMenu(MenuState.GRAPHS_HISTORY));
+
+        // Connect EditReport to ReportsView (The Form)
+        mainLayout.editReportBtn.setOnAction(e -> switchMenu(MenuState.REPORTS));
+
+        // Connect Return to DefaultView
+        mainLayout.returnBtn.setOnAction(e -> switchMenu(MenuState.DEFAULT));
     }
 
     public void switchMenu(MenuState newState) {
         Node nextView;
 
-        // Instead of .display(), we ask the View for its UI Node
+        // Routing logic based on your new requirements
         switch (newState) {
-            case USER_MEDICATION -> nextView = userMedView.getView();
-            case REPORTS -> nextView = reportsView.getView();
-            case GRAPHS_HISTORY -> nextView = historyView.getView();
+            case USER_MEDICATION -> nextView = userMedView.getView(); // User info & Med table
+            case GRAPHS_HISTORY -> nextView = historyView.getView();  // Report Info (Graphs)
+            case REPORTS -> nextView = reportsView.getView();         // Edit Report (The Form)
+            case DEFAULT -> nextView = defaultView.getView();         // Home screen
             default -> nextView = defaultView.getView();
         }
 
-        // Tell the Main Shell to update its center area
+        // Inject the chosen view into the center of the scrollable main layout
         mainLayout.setCenterView(nextView);
     }
 }
