@@ -1,10 +1,10 @@
 package Background;
 
 import DB.DBConnection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalTime;
+
+import Controllers.Controllers;
 
 public class Background extends Thread {
 
@@ -32,10 +32,13 @@ public class Background extends Thread {
                 ResultSet rs = stmt.executeQuery();
 
                 while (rs.next()) {
-                    String med = rs.getString("med_name");
+                    String medName = rs.getString("med_name");
 
                     
-                    NotificationService.showNotification("Time to take: " + med);
+                    DefaultController.showDefaultView();
+
+                    
+                    Notification.show("Time to take: " + medName);
                 }
 
                 Thread.sleep(60000); 
